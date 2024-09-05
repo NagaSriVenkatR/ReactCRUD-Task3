@@ -1,0 +1,30 @@
+.signup-context{
+  padding: 75px 0;
+}
+.form-group{
+  position: relative;
+  margin-bottom: 25px;
+  overflow: hidden;
+}
+label{
+  position: absolute;
+  left: 0;
+  top: 25%;
+}
+input {
+  width: 100%;
+  display: block;
+  border: none;
+  border-bottom: 1px solid #999;
+  padding: 6px 30px;
+  font-family: Poppins;
+  box-sizing: border-box;
+}
+.term-service {
+    font-size: 13px;
+    color: #222;
+}
+.label-agree-term{
+  top: -50%;
+  left: 0%;
+}

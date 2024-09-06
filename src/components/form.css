@@ -1,5 +1,18 @@
-.signup-context{
+/* .signup-context{
+  margin-top: 30px;
+  background-color: #FFFFFF;
+  justify-content: center;
+  align-content: center;
+  border-radius: 25px;
+  box-shadow: 0 15px 16px rgba(0, 0, 0, 0.5);
   padding: 75px 0;
+/* } */
+
+.form-title{
+  text-align: start;
+  font-weight: 700;
+  margin-bottom: 50px;
+  font-size: 50px;
 }
 .form-group{
   position: relative;
@@ -14,17 +27,76 @@ label{
 input {
   width: 100%;
   display: block;
-  border: none;
+  border: none ;
+  border-color: #999;
   border-bottom: 1px solid #999;
   padding: 6px 30px;
   font-family: Poppins;
   box-sizing: border-box;
+  outline: none;
 }
 .term-service {
     font-size: 13px;
     color: #222;
 }
 .label-agree-term{
-  top: -50%;
-  left: 0%;
+  top: -56%;
+  left: 7%;
+} 
+.agree-term{
+  width: 20px;
+  margin: 0;
+  padding: 0;
+  font-size: 1em;
 }
+.form-submit{
+  width: auto;
+  padding: 15px 39px;
+}
+.signup-image{
+  /* margin-top: 0px; */
+  margin: 0 55px;
+  padding-top: 45px;
+}  
+ .child{
+  margin-top: 50px;
+  background-color: #ffffff;
+  border-radius: 25px;
+  box-shadow: 0 15px 16px 17px rgba(0, 0, 0, 0.5);
+  padding: 50px 20px;
+ }
+ @media screen and (max-width : 768px) and (min-width : 768px){
+  .child{
+    margin-top: 20px;
+  }
+  .form-submit{
+    text-align: center !important;
+    float: unset !important;
+  }
+  .form-title{
+    text-align: center;
+  }
+  .col-md-6{
+    width: 100%;
+  }
+  .col-md-4{
+    width: 100%;
+  }
+ }
+ @media screen and (max-width : 450px) {
+  .child{
+    margin-top: 10px;
+  }
+  .col-md-6{
+    width: 100%;
+  }
+  .col-md-4{
+    width: 100%;
+  }
+  .signup-image{
+    margin: 0;
+  }
+  img{
+    width: 150px;
+  }
+ }

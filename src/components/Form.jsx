@@ -101,32 +101,8 @@ function Form() {
    const handleSubmit = (event) => {
      event.preventDefault();
      if (validateForm()) {
-      console.log("Form data submitted successfully")
-      //  if (selectedUser) {
-      //    // Update existing user
-      //    setUsers(
-      //      users.map((user) =>
-      //        user.email === selectedUser.email ? formData : user
-      //      )
-      //    );
-      //    setSelectedUser(null); // Clear selection after update
-      //  } else {
-      //    Add new user
-      //    setUsers([...users, formData]);
-      //  }
-      //  setFormData({
-      //    fullName: "",
-      //    email: "",
-      //    password: "",
-      //    confirmPassword: "",
-      //  });
-      //  setErrors({
-      //    fullName: "",
-      //    email: "",
-      //    password: "",
-      //    confirmPassword: "",
-      //  });
-      //  navigate("/users");
+      console.log("Form data submitted successfully");
+      localStorage.setItem("formData", JSON.stringify(formData));
      }
    };
   return (
@@ -136,7 +112,12 @@ function Form() {
           <div className="col-md col-lg-10  col-xxl-8 d-lg-flex child">
             <div className="signup-form col-md-6">
               <h2 className="form-title">Sign Up</h2>
-              <form action="" method="post" className="register-form" onSubmit={handleSubmit}>
+              <form
+                action=""
+                method="post"
+                className="register-form"
+                onSubmit={handleSubmit}
+              >
                 <div className="form-group">
                   <label htmlFor="">
                     <FaUser />
@@ -149,7 +130,9 @@ function Form() {
                     onChange={handleChange}
                     onBlur={handleBlur}
                   />
-                  <span className='text-danger'>{errors.fullName}</span>
+                  <span className="text-danger text-start">
+                    {errors.fullName}
+                  </span>
                 </div>
                 <div className="form-group">
                   <label htmlFor="">
@@ -163,7 +146,9 @@ function Form() {
                     onChange={handleChange}
                     onBlur={handleBlur}
                   />
-                  <span className='text-danger'>{errors.email}</span>
+                  <span className="text-danger text-start">
+                    {errors.email}
+                  </span>
                 </div>
                 <div className="form-group">
                   <label htmlFor="">
@@ -177,7 +162,9 @@ function Form() {
                     onChange={handleChange}
                     onBlur={handleBlur}
                   />
-                  <span className='text-danger'>{errors.password}</span>
+                  <span className="text-danger text-start">
+                    {errors.password}
+                  </span>
                 </div>
                 <div className="form-group">
                   <label htmlFor="">
@@ -185,13 +172,17 @@ function Form() {
                   </label>
                   <input
                     type="password"
+                    name='confirmPassword'
                     placeholder="Repeat your password"
+                    value={formData.confirmPassword}
                     onChange={handleChange}
                     onBlur={handleBlur}
                   />
-                  <span className='text-danger'>{errors.confirmPassword}</span>
+                  <span className="text-danger text-start">
+                    {errors.confirmPassword}
+                  </span>
                 </div>
-                <div className="form-group">
+                <div className="form-group my-3">
                   <input type="checkbox" className="agree-term" />
                   <label htmlFor="" className="label-agree-term">
                     <span>
@@ -203,12 +194,12 @@ function Form() {
                     </a>
                   </label>
                 </div>
-                <div className="form-group form-button">
-                  <input
+                <div className="form-group form-button text-start">
+                  <button
                     className="form-submit btn btn-primary"
                     type="submit"
                     value="Register"
-                  />
+                  >Register</button>
                 </div>
               </form>
             </div>

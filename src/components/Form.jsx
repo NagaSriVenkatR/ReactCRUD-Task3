@@ -1,11 +1,12 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import "bootstrap/dist/css/bootstrap.min.css";
 import { FaUser } from "react-icons/fa";
 import { MdEmail, MdLockOutline  } from "react-icons/md";
 import { IoMdLock } from "react-icons/io";
 import SIGN from "./signup-image.jpg"
 import "./form.css"
-function Form() {
+import { useNavigate } from 'react-router-dom';
+function Form({ users, setUsers, setSelectedUser, selectedUser }) {
   const [formData, setFormData] = useState({
     fullName: "",
     email: "",
@@ -19,92 +20,127 @@ function Form() {
     password: "",
     confirmPassword: "",
   });
-   const handleBlur = (event) => {
-     const { name, value } = event.target;
-     let validateErrors = { ...errors };
-     if (!value) {
-       validateErrors[name] = `${
-         name.charAt(0).toUpperCase() + name.slice(1)
-       } is required `;
-     } else {
-       validateErrors[name] = "";
-     }
-     setErrors(validateErrors);
-   };
-   const handleChange = (event) => {
-     const { name, value } = event.target;
-     setFormData({ ...formData, [name]: value });
-   };
-   let emailPattern =
-     /^([a-zA-Z0-9]+)@([a-zA-Z0-9-]+).([a-zA-Z]+).([a-zA-Z]{2,20})$/;
-   let upperCasePattern = /[A-Z]/;
-   let lowerCasePattern = /[a-z]/;
-   let numberPattern = /[0-9]/;
-   let specialCharacterPattern = /[~!@#%&()$^_?]/;
-   let minlengthCharacterPattern = /^.{8,16}$/;
-   const validateForm = () => {
-     let valid = true;
-     let newErrors = [];
-     if (!formData.fullName) {
-       newErrors.fullName = "Full Name is required";
-       valid = false;
-     } else {
-       newErrors.fullName = " ";
-     }
-     if (!formData.email) {
-       newErrors.email = "Email is required";
-       valid = false;
-     } else {
-       if (!emailPattern.test(formData.email)) {
-         newErrors.email = "Enter valid email";
-         valid = false;
-       } else {
-         newErrors.email = " ";
-       }
-     }
-     if (!formData.password) {
-       newErrors.password = "Password is required";
-       valid = false;
-     } else {
-       if (!minlengthCharacterPattern.test(formData.password)) {
-         newErrors.password = "password must be between 8 to 16 characters";
-         valid = false;
-       } else if (!lowerCasePattern.test(formData.password)) {
-         newErrors.password = "At least 1 lowercase character";
-         valid = false;
-       } else if (!numberPattern.test(formData.password)) {
-         newErrors.password = "At least 1 number";
-         valid = false;
-       } else if (!specialCharacterPattern.test(formData.password)) {
-         newErrors.password = "At least 1 special character";
-         valid = false;
-       } else if (!upperCasePattern.test(formData.password)) {
-         newErrors.password = "At least 1 uppercase character";
-         valid = false;
-       } else {
-         newErrors.password = " ";
-       }
-     }
-     if (!formData.confirmPassword) {
-       newErrors.confirmPassword = "Confirm password is required";
-       valid = false;
-     } else if (formData.password !== formData.confirmPassword) {
-       newErrors.confirmPassword =
-         "Check your confirm password and password should be same";
-       valid = false;
-     } else {
-       newErrors.confirmPassword = "";
-     }
-     setErrors(newErrors);
-     return valid;
-   };
-   const handleSubmit = (event) => {
-     event.preventDefault();
-     if (validateForm()) {
+  const navigate = useNavigate();
+  useEffect(() => {
+    if (selectedUser) {
+      setFormData(selectedUser);
+    }
+  }, [selectedUser]);
+  const handleBlur = (event) => {
+    const { name, value } = event.target;
+    let validateErrors = { ...errors };
+    if (!value) {
+      validateErrors[name] = `${
+        name.charAt(0).toUpperCase() + name.slice(1)
+      } is required `;
+    } else {
+      validateErrors[name] = "";
+    }
+    setErrors(validateErrors);
+  };
+  const handleChange = (event) => {
+    const { name, value } = event.target;
+    setFormData({ ...formData, [name]: value });
+  };
+  let emailPattern =
+    /^([a-zA-Z0-9]+)@([a-zA-Z0-9-]+).([a-zA-Z]+).([a-zA-Z]{2,20})$/;
+  let upperCasePattern = /[A-Z]/;
+  let lowerCasePattern = /[a-z]/;
+  let numberPattern = /[0-9]/;
+  let specialCharacterPattern = /[~!@#%&()$^_?]/;
+  let minlengthCharacterPattern = /^.{8,16}$/;
+  const validateForm = () => {
+    let valid = true;
+    let newErrors = [];
+    if (!formData.fullName) {
+      newErrors.fullName = "Full Name is required";
+      valid = false;
+    } else {
+      newErrors.fullName = " ";
+    }
+    if (!formData.email) {
+      newErrors.email = "Email is required";
+      valid = false;
+    } else {
+      if (!emailPattern.test(formData.email)) {
+        newErrors.email = "Enter valid email";
+        valid = false;
+      } else {
+        newErrors.email = " ";
+      }
+    }
+    if (!formData.password) {
+      newErrors.password = "Password is required";
+      valid = false;
+    } else {
+      if (!minlengthCharacterPattern.test(formData.password)) {
+        newErrors.password = "password must be between 8 to 16 characters";
+        valid = false;
+      } else if (!lowerCasePattern.test(formData.password)) {
+        newErrors.password = "At least 1 lowercase character";
+        valid = false;
+      } else if (!numberPattern.test(formData.password)) {
+        newErrors.password = "At least 1 number";
+        valid = false;
+      } else if (!specialCharacterPattern.test(formData.password)) {
+        newErrors.password = "At least 1 special character";
+        valid = false;
+      } else if (!upperCasePattern.test(formData.password)) {
+        newErrors.password = "At least 1 uppercase character";
+        valid = false;
+      } else {
+        newErrors.password = " ";
+      }
+    }
+    if (!formData.confirmPassword) {
+      newErrors.confirmPassword = "Confirm password is required";
+      valid = false;
+    } else if (formData.password !== formData.confirmPassword) {
+      newErrors.confirmPassword =
+        "Check your confirm password and password should be same";
+      valid = false;
+    } else {
+      newErrors.confirmPassword = "";
+    }
+    setErrors(newErrors);
+    return valid;
+  };
+  const handleSubmit = (event) => {
+    event.preventDefault();
+    if (validateForm()) {
       console.log("Form data submitted successfully");
       localStorage.setItem("formData", JSON.stringify(formData));
-     }
-   };
+       if (selectedUser) {
+         // Update existing user
+         setUsers(
+           users.map((user) =>
+             user.email === selectedUser.email ? formData : user
+           )
+         );
+         setSelectedUser(null); // Clear selection after update
+       } else {
+         // Add new user
+         setUsers([...users, formData]);
+       }
+       setFormData({
+         fullName: "",
+         phoneNumber: "",
+         email: "",
+         userName: "",
+         password: "",
+         confirmPassword: "",
+       });
+       setErrors({
+         fullName: "",
+         phoneNumber: "",
+         email: "",
+         userName: "",
+         password: "",
+         confirmPassword: "",
+       });
+       navigate("/users");
+    }
+  };
   return (
     <div style={{ backgroundColor: "#f8f8f8 !important" }}>
       <div className="container">
@@ -146,9 +182,7 @@ function Form() {
                     onChange={handleChange}
                     onBlur={handleBlur}
                   />
-                  <span className="text-danger text-start">
-                    {errors.email}
-                  </span>
+                  <span className="text-danger text-start">{errors.email}</span>
                 </div>
                 <div className="form-group">
                   <label htmlFor="">
@@ -172,7 +206,7 @@ function Form() {
                   </label>
                   <input
                     type="password"
-                    name='confirmPassword'
+                    name="confirmPassword"
                     placeholder="Repeat your password"
                     value={formData.confirmPassword}
                     onChange={handleChange}
@@ -199,7 +233,9 @@ function Form() {
                     className="form-submit btn btn-primary"
                     type="submit"
                     value="Register"
-                  >Register</button>
+                  >
+                    Register
+                  </button>
                 </div>
               </form>
             </div>

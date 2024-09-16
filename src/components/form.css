@@ -1,7 +1,12 @@
  .signup-form{
   padding: 50px;
  }
-
+.delete{
+  color: red;
+}
+.h-100{
+  height: 41.2px !important;
+}
 .form-title{
   text-align: start;
   font-weight: 700;

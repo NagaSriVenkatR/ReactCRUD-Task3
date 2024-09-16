@@ -24,8 +24,11 @@ function Form({ users, setUsers, setSelectedUser, selectedUser }) {
   useEffect(() => {
     if (selectedUser) {
       setFormData(selectedUser);
-    }
+    } 
   }, [selectedUser]);
+  // useEffect(() => {
+  //   localStorage.setItem("formData", JSON.stringify(formData));
+  // }, [formData]);
   const handleBlur = (event) => {
     const { name, value } = event.target;
     let validateErrors = { ...errors };
@@ -108,19 +111,19 @@ function Form({ users, setUsers, setSelectedUser, selectedUser }) {
   const handleSubmit = (event) => {
     event.preventDefault();
     if (validateForm()) {
-      console.log("Form data submitted successfully");
-      localStorage.setItem("formData", JSON.stringify(formData));
+      //  const savedUsers = JSON.parse(localStorage.getItem("users")) || [];
        if (selectedUser) {
          // Update existing user
-         setUsers(
-           users.map((user) =>
-             user.email === selectedUser.email ? formData : user
-           )
+         const updatedUsers = users.map((user) =>
+           user.email === selectedUser.email ? formData : user
          );
-         setSelectedUser(null); // Clear selection after update
+         setUsers(updatedUsers);
+         localStorage.setItem("users", JSON.stringify(updatedUsers));
        } else {
          // Add new user
-         setUsers([...users, formData]);
+         const updatedUsers = [...users, formData];
+         setUsers(updatedUsers);
+         localStorage.setItem("users", JSON.stringify(updatedUsers));
        }
        setFormData({
          fullName: "",
@@ -138,6 +141,7 @@ function Form({ users, setUsers, setSelectedUser, selectedUser }) {
          password: "",
          confirmPassword: "",
        });
+       setSelectedUser(null);
        navigate("/users");
     }
   };

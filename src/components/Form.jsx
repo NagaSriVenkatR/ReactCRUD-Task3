@@ -145,6 +145,24 @@ function Form({ users, setUsers, setSelectedUser, selectedUser }) {
        navigate("/users");
     }
   };
+  const handleReset = () => {
+      setFormData({
+        fullName: "",
+        phoneNumber: "",
+        email: "",
+        userName: "",
+        password: "",
+        confirmPassword: "",
+      });
+      setErrors({
+        fullName: "",
+        phoneNumber: "",
+        email: "",
+        userName: "",
+        password: "",
+        confirmPassword: "",
+      });
+    };
   return (
     <div style={{ backgroundColor: "#f8f8f8 !important" }}>
       <div className="container">
@@ -232,13 +250,21 @@ function Form({ users, setUsers, setSelectedUser, selectedUser }) {
                     </a>
                   </label>
                 </div>
-                <div className="form-group form-button text-start">
+                <div className="form-group form-button text-start  d-flex">
                   <button
-                    className="form-submit btn btn-primary"
+                    className="form-submit btn btn-primary me-3"
                     type="submit"
                     value="Register"
                   >
-                    Register
+                    {selectedUser ? "Update" : "Register"}
+                  </button>
+                  <button
+                    className="btn btn-danger"
+                    type="reset"
+                    value="Reset"
+                    onClick={handleReset}
+                  >
+                    Reset
                   </button>
                 </div>
               </form>
